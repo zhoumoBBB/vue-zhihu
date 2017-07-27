@@ -224,6 +224,7 @@
         })
       },
       beforeRouteEnter (to, from, next) {
+        console.log("切换到home")
         next(vm=>{
             vm.$store.commit("TOOGLE_FOOTERBAR",{boolean:true})
         })
