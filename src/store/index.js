@@ -1,0 +1,195 @@
+import Vue from "vue"
+import Vuex from "vuex"
+import {getters} from "./getter"
+import {mutations} from "./mutations"
+import {actions} from "./actions"
+
+Vue.use(Vuex)
+let state={
+    home:{
+        history:[
+            {
+                name:"历史记录1"
+            },
+            {
+                name:"历史记录2"
+            },
+            {
+                name:"历史记录3"
+            },
+            {
+                name:"历史记录4"
+            }
+        ],
+        private_letter:[
+            // {
+            //     name:"",
+            //     text:"",
+            // }
+        ],
+        hot_news:[
+            {
+                id:"r101",
+                topicId:"read",
+                topic:"阅读",
+                title:"你知道什么苦涩的故事",
+                inner:"我上大学的时候，我院有个副院长，是搞教育学的。他经常在各种报刊上发文章。发了文章，就贴到我校BBS的院版上，并且设置不可回复。道理很简单，他的文章经常充满槽点，发到院版上就老有人喷，这位副院长又不是BBS的管理人员，删不",
+                like:"234",
+                comment:"25",
+                src:require("../assets/newsLogo/read.jpg")
+            },
+            {
+                id:"r102",
+                topicId:"read",
+                topic:"阅读",
+                title:"腹有诗书气自华是真的吗？",
+                inner:"反正我见过各种德国教授被各种人当成门房大爷/修房子的/刚从菜场出来的大妈/奇怪的老头。。。四月份招我们学校教授的时候，有个穿着冲锋衣，带着两个孩子，看起来像全职主妇的女人怯生生的问我：“请问这里是大音乐厅么？”我当时很随便的说“对，这里在进行教授的入职考试，不能打扰。”",
+                like:"23",
+                comment:"154",
+                src:require("../assets/newsLogo/read.jpg"),
+            },
+            {
+                id:"r101",
+                topicId:"read",
+                topic:"生活方式、生活",
+                title:"你有哪些误伤队友的操作？",
+                inner:"初中一个兄弟，自幼修习跆拳道，个子虽然不高，在初中战斗力已经相当可怕。外加长相英俊，谈吐不错，自然有女生缘。 一天电脑课下课，一位与他时常打情骂俏的萌妹子从后娇嗔地用电脑书拍了一下他的脑袋。",
+                like:"87",
+                comment:"35",
+                src:require("../assets/newsLogo/live.jpg"),
+            },
+            {
+                id:"r102",
+                topicId:"read",
+                topic:"书法",
+                title:"从艺术的层面考虑，蒋介石的书法是什么水平",
+                inner:"蒋字中正平和，毛字奔放洒脱，一正一草，并无可比之准绳，请诸君切勿强行分高下。另蒋先生始终坚持抗日，至死坚持一个中国；毛推翻三座大山，建立新中国，革除旧弊，提倡妇女解放，打赢朝战，赋国人以彻底自信，不再自低西人。二者皆为中华之脊梁，诸君又何苦褒一而贬一耶？",
+                like:"87",
+                comment:"14",
+                src:require("../assets/newsLogo/read.jpg"),
+            },
+            {
+                id:"r101",
+                topicId:"read",
+                topic:"信息技术",
+                title:"未来百度、阿里巴巴、腾讯谁会独领风骚？",
+                inner:"百度已经落后了，李彦宏战略眼光不足。现在是腾讯与阿里巴巴平分秋色。国内唯二的市值超过3000亿美元的巨无霸。但你别提两者谁会独领风骚。政府可不愿看到有谁独领风骚。为什么？制衡。阿里巴巴与腾讯非但不能联合，而且必须斗个你死我活。这样政府才好控制两个垄断私有巨头。让任何一家独大，政府都将处于被动的受支配的境地。",
+                like:"54",
+                comment:"34",
+                src:require("../assets/newsLogo/info.jpg"),
+            },
+            {
+                id:"r102",
+                topicId:"read",
+                topic:"创业",
+                title:"苏宁为什么败给京东",
+                inner:"我小姨在苏宁实体店买了个西门子冰箱，和店员谈好价格后在店员的建议下直接微信转账给他2599元，约定一星期后去门店开发票，一切顺利坐等送货。次日，小姨如约收到冰箱，却在包装中发现京东2399元发票一张…不难推测，店员私自收了钱在京东以低价购入…赚取200元差价…",
+                like:"76",
+                comment:"34",
+                src:require("../assets/newsLogo/business.jpg"),
+            }
+        ],
+        standby_news:[
+            {
+                id:"l101",
+                topic:"历史",
+                title:"因为三国演义导致人们对三国历史可能有哪些错误的认知？",
+                inner:"比如魏延，明明是忠臣却被写成了反贼，曹操被写成了奸臣，周瑜被黑的体无完肤，刘备被黑成无能只会哭，王司徒和太史慈对打却被孔明骂死，等等等等。",
+                like:"35",
+                comment:"23",
+                src:require("../assets/newsLogo/business.jpg"),
+            },
+            {
+                id:"r101",
+                topic:"阅读",
+                title:"你听过的最委婉，最含蓄的一句诗词是什么？",
+                inner:"生日礼物的小纸条上写着。当时还嘲笑和我同岁的她太贪心，哪有那么容易活到一百岁啊。后来偶然读到一句话。 “谁若九十七岁死，奈何桥上等三年。”",
+                like:"54",
+                comment:"34",
+                src:require("../assets/newsLogo/business.jpg"),
+            },
+            {
+                id:"l101",
+                topic:"生活",
+                title:"男生宿舍都发生过哪些「惊为天人」的事？",
+                inner:"人生第一次破500赞！！！补一个跟室友上网吧的新段子。那是夏天，6月盛夏，突然气温骤降，来了一场雨夹雪。我看着窗外飞舞的雪花，感受着偶尔飘进窗子的雨点，悠悠地说：这么好的天气，要是能去网吧就好了。",
+                like:"534",
+                comment:"46",
+                src:require("../assets/newsLogo/business.jpg"),
+            }
+        ]
+    },
+    detail_article:{
+        "r101":{
+            title:"抽取数据（一）",
+            topicId:"read",
+            author:"吴蒙蒙",
+            src:require("../assets/head/portrait-1.jpg"),
+            intorduce:"来啊来啊关注我啊！",
+            attention:"true",
+            content:"<div class='markdown-text'><p><img src='http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/1ac00bee5abd7cc1d9a9435f861acba6.png' alt='screenshot.png'></p><blockquote><p>原文地址：<a href='https://zhuanlan.zhihu.com/p/25860846'>https://zhuanlan.zhihu.com/p/25860846</a></p></blockquote><hr><p>时光如梭，转眼间 Egg.js 已经开源半年了，我们很荣幸地宣布，Egg.js 正式发布 1.0 版本。</p><ul><li>官网传送门：<a href='https://eggjs.org'>https://eggjs.org</a></li><li>GitHub：<a href='https://github.com/eggjs/egg'>https://github.com/eggjs/egg</a></li><li>Egg.js 英文文档：与 SwiftGG 翻译组强强联合，中译英的小伙伴招募中，如果你有兴趣，请试译 这篇文章 ，并注明你的 qq 号，发送给 SwiftGG 的同学邮箱(<a href='mailto:1030041592@qq.com'>1030041592@qq.com</a>)。期待你的加入！</li></ul><h2>特点</h2><ul><li><strong>『企业级的 Node.js Web 基础框架』</strong>，寓意 - 孕育新生。</li><li>业界领先的 <strong>『微内核 + 插件机制』</strong>，专为团队架构师量身打造的 <strong>『框架定制』</strong> 能力。</li><li>内建的安全机制与多进程管理模型。</li><li>高可用，高质量，严格遵循 Semver 规则，测试覆盖率 100%（travis/appveyor)。</li><li>同时支持 koa 1.x 和 2.x 生态，支持 ES 2017 Async Await。</li><li>沉淀自阿里各行各业不同领域最佳实践的插件，涵盖了常见的业务开发场景，稳定支撑了 15 和 16 年天猫双11大促，顶级流量压力。</li><li>渐进式，极具伸缩性，既适合个人小项目快速开发，也适合企业级的团队开发协作。</li></ul><blockquote><p>更详细的特点，以及 Node.js 在阿里的定位，可以参见： <a href='https://www.zhihu.com/question/50526101/answer/144952130'>如何评价阿里开源的企业级 Node.js 框架 egg？</a></p></blockquote><p>看来重要的事要说三次：<strong>Egg 1.x 版本完全支持 async，完全支持 koa2 的中间件</strong><strong>Egg 1.x 版本完全支持 async，完全支持 koa2 的中间件</strong><strong>Egg 1.x 版本完全支持 async，完全支持 koa2 的中间件</strong></p><h2>里程碑</h2><ul><li>2013 年蚂蚁的 chair 框架，可视为 Egg.js 前身。</li><li>2015 年 11 月，在苏千的召集下，阿里各 BU 的前端骨干齐聚黄龙，闭门共建一周。</li><li>2016 年初，各 BU 的基础 Web 框架完成升级，在同一套规范的基础上进行差异化定制。</li><li>2016 年中，成为阿里 Node.js 基建，广泛使用在绝大部分阿里的前端 Node.js 应用。</li><li>2016 年 09 月，在 <a href='http://2016.jsconf.cn/'>JSConf China 2016</a> 上亮相并宣布开源。</li><li>2017 年初，经过一周的<a href='https://cnodejs.org/topic/5870e9da04dcf9a706a745f0'>闭关直播写文档</a>，期待已久的 <a href='https://eggjs.org/'>官方文档</a> 诚意登场，足足近 30 篇。</li><li>2017年 02 月，知乎问答：<a href='https://www.zhihu.com/question/50526101/answer/144952130'>如何评价阿里开源的企业级 Node.js 框架 egg？</a></li><li>2017 年 02 月第 2 周，上了 <strong>GitHub Trending</strong> 周榜第三，Star 数增加 1k 多。</li><li>2017 年 03 月 21 日，Egg.js 正式发布 1.0.0 。</li></ul><h2>成就</h2><ul><li>截止到今天(3.21)，2250+ Star，50+ 插件，10+ 核心开发者，30+ 贡献者。</li><li>GitHub Trending 周榜第三，并上了 Node Weekly 周刊。</li><li>官网 UV 日均 300+ 。</li></ul><p><img src='http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/2a69766ae55cab517418e7b2f004d9b9.png' alt='screenshot.png'></p><ul><li>Node TSC Director - Rod Vagg 在 Twitter 上关注并转发。</li></ul><p><img src='http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/42f3483f8c7b9a39678958816f477ae2.png' alt='screenshot.png'></p><h2>感言</h2><p><img src='http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6461618ea8944a1fb5ada1db8aeb7de7.png' alt='screenshot.png'></p><h2>规划</h2><ul><li>Egg.js 英文文档翻译，欢迎加入 <a href='http://swift.gg/'>SwiftGG 翻译组</a> 发起的 <a href='https://github.com/eggjs/egg/issues/363'>Egg 文档翻译项目</a>。</li><li>继续完善文档，沉淀最佳实践，并帮助社区产出更多的插件和上层框架。</li><li>Node.js 8 LTS 发布后，底层将无缝升级到 Koa<a href='/user/2'>@2</a> 。</li></ul></div>",
+            comment:"233",
+            like:"248"
+        },
+        "r102":{
+            title:"抽取数据（二）",
+            topicId:"read",
+            author:"会飞的大象",
+            src:require("../assets/head/portrait-2.jpg"),
+            intorduce:"零基础学英语的学渣！",
+            attention:"true",
+            content:'<div class="markdown-text"><p><img src="http://upload-images.jianshu.io/upload_images/311249-24f4d83b748e37ee?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><p>在这个项目上，也就是前端的工作居多。某日，一友人因把文件上传到 Dropbox 而引发众怒。同时，百度网盘也越来越不好用了。我随意吐槽之。于是乎，就有了这个项目。</p><p><img src="http://upload-images.jianshu.io/upload_images/311249-f26d4fb7903e2a55?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><p>某个周六深夜，写小程序已闷死，突然想起答应友人的事情了。</p><p>经过初步调查，选用 Electron-vue 作为基础框架开发。在我这个刚学 nodejs，更不懂 electron，也就只是有一定的前后端经验的人，或许这是一个挑战。</p><h3>设计定稿</h3><p>作为一个设计师，怎么也要样子好看，所以就以设计稿起步为先。</p><p><img src="http://upload-images.jianshu.io/upload_images/311249-e12c03880fbed17a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt>我把主界面画了出来，确定好 UI 风格了。</p><h3>VUE</h3><p>代码是开始在周日凌晨 1 点多。我选用了 Electron-vue 作为解决方案。</p><p>不过，由于 VUE 不熟悉，也碰到了一些坑。</p><p><strong>例如：</strong></p><ul><li>不知道如何引用文件（感觉以前的前端技能被残废了一样）</li><li>写完 CSS 才发现，A 页面的 CSS 会干扰 B 页面的 CSS（我还以为和小程序、React 那样）</li><li>VUE 的路由我理解了好长时间才明白。</li></ul><p>我以前一直写 jQuery，异步和 DOM 管理没什么问题。可是遇到 VUE，我真的觉得脑子的思維要转变了哦。特別是路由，这个明明不就是后端的事情吗？怎么前端模板也有路由概念，我折腾了有 1 小時，才发现原来所谓路由不是跳转 GET/POST 的意思，而是切换显示的页面。怪不得 Google 的时候一直出现的 SPA 这个词，其实我也没理解。直到我刚才专门 Google 才知道了。大哭（其实我以为 SPA 真的是 SPA 嘛~）。</p><h3>Electron</h3><p>这货坑也不少。</p><p><strong>例如：</strong></p><ul><li>复制粘贴在 Build 后完全用不了。</li><li>一开始抓头在思考怎么做 GET 和 POST……</li><li>背景模糊玻璃效果，还没能实现，不过在 demo 的确能做到。</li><li>打包后，竟然找不到 modules……</li></ul><h3>七牛</h3><p>官方的 Node.JS SDK 在 npm run dev 能用，但是打包 App 后有一定问题，这个还是要好好调查。</p><h3>开发</h3><p>总而言之，在我 App 编写 6 个小时候之后，终于基本可以面世了。以 Electron 的方案来开发 App 的确比传统要舒服和快，而且动画效果写起来不吃力（毕竟强大的 CSS3 动画真厉害），所以我在 App 添加了比较多的动画效果。</p><p>Electron 打包的确很大，也无解。经过 ZIP 压缩后有 40 多MB，还算能接受。</p><h3>界面效果</h3><p><img src="http://upload-images.jianshu.io/upload_images/311249-6cb3092627604810?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><img src="http://upload-images.jianshu.io/upload_images/311249-62feb75d8f6892c4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><img src="http://upload-images.jianshu.io/upload_images/311249-d2cbdcc50fd3f640?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><hr><p>推荐阅读：<a href="http://mp.weixin.qq.com/s?__biz=MjM5NzAwNDI4Mg==&amp;mid=2652193324&amp;idx=1&amp;sn=27bd871dba821a11982fff7a085e41d9&amp;chksm=bd0174b98a76fdafbf5515d4304a6ec219755b2293d5aff5c680164daeb9d29e15dadc665213&amp;scene=21#wechat_redirect">动手实操：如何用七牛云 API 实现相片地图？</a></p><p><img src="http://upload-images.jianshu.io/upload_images/311249-45699a4265aa3487?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><strong>报名方式：<strong>有更多有趣的作品分享给大家？扫描上方</strong>二维码</strong>和美女队长接头，即可成为【动手实操】系列玩家。</p></div>',
+            comment:"98",
+            like:"142"
+        },
+    },
+    question_list:{
+            "read":[
+                {
+                    id:"r101",
+                    src:require("../assets/head/portrait-1.jpg"),
+                    name:"个玄白今天要做题",
+                    inner:"这里有个对比的效果。即，气度高下，不看衣服，看内涵学问。气度学问比衣服外物更体现内涵，这才是重点。",
+                    like:"234",
+                    comment:"54",
+                    time:"2天前",
+                },
+                {
+                    id:"r102",
+                    src:require("../assets/head/portrait-2.jpg"),
+                    name:"Nicolas-L",
+                    inner:"睿智、精神、帅气、气自华。“腹有诗书气自华”是如何体现出来的？首先“诗书”所指，绝非书本上的词句，更多的是源于生活的感悟。这样的感受或许可以说成是“阅历”。一个人的成长，往往由他的阅历所决定，阅历丰富的人很容易让人分辨。带给别人一种气质上",
+                    like:"54",
+                    comment:"23",
+                    time:"1天前",
+                },
+                {
+                    id:"r101",
+                    src:require("../assets/head/portrait-1.jpg"),
+                    name:"张嘉树",
+                    inner:"子曾经曰过：与善人居，如入芝兰之室，久而不闻其香，即与之化矣；与不善人居，如入鲍鱼之肆，久而不闻其臭，亦与之化矣。人的学识、修养、气质皆是潜移默化的积累到内在，又通过外在的衣着、谈吐、行为表达。",
+                    like:"65",
+                    comment:"34",
+                    time:"3天前",
+                },
+                {
+                    id:"r102",
+                    src:require("../assets/head/portrait-2.jpg"),
+                    name:"和这个世界不熟的基佬",
+                    inner:"晚自习放学，偶然抬头看夜空 。舍友：“特么今天月亮又大又亮啊！”我看着月儿，心中一动：“天上一轮明月，飞彩凝辉～～～”",
+                    like:"23",
+                    comment:"42",
+                    time:"5天前",
+                }
+            ]
+    },
+    show_footerBar:true,
+    live_router:true,
+}
+let store=new Vuex.Store({
+        state,
+        getters,
+        mutations,
+        actions,
+})
+export {store}
